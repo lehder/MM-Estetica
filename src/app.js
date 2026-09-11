@@ -9,46 +9,48 @@ import serviceRoutes from './routes/serviceRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const publicPath = path.resolve(__dirname, '../public');
 
 const app = express();
 
+// Middlewares base
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// Servir la carpeta public estática (un nivel arriba de /src)
-const publicPath = path.resolve(__dirname, '../public');
+// Archivos estáticos
 app.use(express.static(publicPath));
-
-// Rutas explícitas de respaldo para las vistas HTML principales
-app.get('/', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
-});
-
-app.get('/contacto', (req, res) => {
-  res.sendFile(path.join(publicPath, 'contacto.html'));
-});
-
-app.get('/servicios', (req, res) => {
-  res.sendFile(path.join(publicPath, 'servicios.html'));
-});
-
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(publicPath, 'login.html'));
-});
 
 // Rutas API
 app.use('/api/auth', authRoutes);
 app.use('/api/services', serviceRoutes);
 
-// Middleware global para imprimir el error exacto en los logs de Render
+// Vistas HTML principales
+const views = ['index', 'contacto', 'servicios', 'login'];
+
+views.forEach((view) => {
+  const route = view === 'index' ? '/' : `/${view}`;
+  app.get(route, (req, res) => {
+    res.sendFile(path.join(publicPath, `${view}.html`));
+  });
+});
+
+// Manejo de rutas no encontradas (404)
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(publicPath, 'index.html'));
+});
+
+// Middleware global de errores
 app.use((err, req, res, next) => {
   console.error('--- ERROR CAPTURADO EN EL SERVIDOR ---');
   console.error('Mensaje:', err.message);
   console.error('Código:', err.code);
   console.error('Stack:', err.stack);
-  res.status(500).json({ error: err.message || 'Error interno del servidor' });
+
+  res.status(err.status || 500).json({
+    error: err.message || 'Error interno del servidor'
+  });
 });
 
 export default app;
