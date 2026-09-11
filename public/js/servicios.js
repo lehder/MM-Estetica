@@ -2,9 +2,12 @@ let currentPage = 1;
 let currentCategory = '';
 const limit = 6;
 
-// Diccionario de imágenes únicas por tratamiento
+// Imagen de respaldo garantizada para cualquier fallo de carga
+const DEFAULT_FALLBACK_IMG = 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80';
+
+// Catálogo de fotografías exclusivas por tratamiento
 const treatmentPhotos = {
-  // Tratamientos Faciales
+  // Faciales
   'punta de diamante': 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80',
   'hidrafacial': 'https://images.unsplash.com/photo-1512290900672-1f48039c362a?auto=format&fit=crop&w=800&q=80',
   'dermapen con vitaminas': 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=800&q=80',
@@ -17,7 +20,7 @@ const treatmentPhotos = {
   'masaje craneofacial': 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
   'laser facial shr': 'https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=800&q=80',
 
-  // Tratamientos Corporales
+  // Corporales
   'maderoterapia': 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=800&q=80',
   'drenaje linfatico manual': 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80',
   'presoterapia': 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=800&q=80',
@@ -27,24 +30,28 @@ const treatmentPhotos = {
   'eliminacion de estrias': 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=800&q=80'
 };
 
-// Asignación de imagen según el título normalizado
+// Normalizar texto para comparación robusta
+function normalizeString(text = '') {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s]/gi, '')
+    .trim();
+}
+
+// Selector de imagen según título o categoría
 function getTreatmentImage(title, category) {
   if (!title) {
     return category === 'CORPORAL'
       ? 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80'
-      : 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80';
+      : DEFAULT_FALLBACK_IMG;
   }
 
-  // Quitar acentos, convertir a minúsculas y limpiar caracteres corruptos
-  const cleanTitle = title
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^\w\s]/gi, '')
-    .trim();
+  const cleanTitle = normalizeString(title);
 
   for (const [key, url] of Object.entries(treatmentPhotos)) {
-    const cleanKey = key.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\w\s]/gi, '');
+    const cleanKey = normalizeString(key);
     if (cleanTitle.includes(cleanKey) || cleanKey.includes(cleanTitle)) {
       return url;
     }
@@ -52,10 +59,10 @@ function getTreatmentImage(title, category) {
 
   return category === 'CORPORAL'
     ? 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80'
-    : 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80';
+    : DEFAULT_FALLBACK_IMG;
 }
 
-// Obtener datos del endpoint
+// Obtener datos del endpoint de la API
 async function fetchServices(page = 1, category = '') {
   const container = document.getElementById('servicesContainer');
   try {
@@ -75,7 +82,7 @@ async function fetchServices(page = 1, category = '') {
   }
 }
 
-// Renderizado de tarjetas
+// Renderizado de tarjetas con control de errores de imagen
 function renderCards(services) {
   const container = document.getElementById('servicesContainer');
   container.innerHTML = '';
@@ -92,8 +99,14 @@ function renderCards(services) {
 
     card.innerHTML = `
       <div class="card-image-wrap">
-        <span class="card-badge-overlay">${item.category}</span>
-        <img src="${imgUrl}" alt="${item.title}" class="card-img" loading="lazy">
+        <span class="card-badge-overlay">${item.category || 'ESTÉTICA'}</span>
+        <img 
+          src="${imgUrl}" 
+          alt="${item.title}" 
+          class="card-img" 
+          loading="lazy"
+          onerror="this.onerror=null; this.src='${DEFAULT_FALLBACK_IMG}';"
+        >
       </div>
       <div class="card-body">
         <div>
@@ -101,7 +114,7 @@ function renderCards(services) {
           <p>${item.description || 'Protocolo personalizado con aparatología de última generación.'}</p>
         </div>
         <div class="service-meta">
-          <span>⏱ ${item.duration_min} min</span>
+          <span>⏱ ${item.duration_min || 45} min</span>
           <a href="contacto.html?service=${encodeURIComponent(item.title)}">Reservar &rarr;</a>
         </div>
       </div>
@@ -111,11 +124,13 @@ function renderCards(services) {
 }
 
 // Renderizado de botones de paginación
-function renderPagination({ currentPage: page, totalPages }) {
+function renderPagination(pagination) {
   const pagWrapper = document.getElementById('paginationWrapper');
   pagWrapper.innerHTML = '';
 
-  if (totalPages <= 1) return;
+  if (!pagination || pagination.totalPages <= 1) return;
+
+  const { currentPage: page, totalPages } = pagination;
 
   // Botón anterior
   const prevBtn = document.createElement('button');
@@ -128,7 +143,7 @@ function renderPagination({ currentPage: page, totalPages }) {
   });
   pagWrapper.appendChild(prevBtn);
 
-  // Páginas numeradas
+  // Botones numéricos
   for (let i = 1; i <= totalPages; i++) {
     const btn = document.createElement('button');
     btn.className = `page-btn ${i === page ? 'active' : ''}`;
@@ -152,7 +167,7 @@ function renderPagination({ currentPage: page, totalPages }) {
   pagWrapper.appendChild(nextBtn);
 }
 
-// Inicialización de eventos
+// Inicialización de listeners
 document.addEventListener('DOMContentLoaded', () => {
   fetchServices(currentPage, currentCategory);
 
