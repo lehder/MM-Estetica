@@ -42,4 +42,13 @@ app.get('/login', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/services', serviceRoutes);
 
+// Middleware global para imprimir el error exacto en los logs de Render
+app.use((err, req, res, next) => {
+  console.error('--- ERROR CAPTURADO EN EL SERVIDOR ---');
+  console.error('Mensaje:', err.message);
+  console.error('Código:', err.code);
+  console.error('Stack:', err.stack);
+  res.status(500).json({ error: err.message || 'Error interno del servidor' });
+});
+
 export default app;
