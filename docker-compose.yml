@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    container_name: mm_estetica_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=secret
+      - DB_NAME=melanie_marin_db
+      - JWT_SECRET=super_secret_melanie_marin_token_2026
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    container_name: mm_estetica_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: melanie_marin_db
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./public:/usr/src/app/public      # <--- Esto sincroniza HTML, CSS y JS al instante
+      - ./src:/usr/src/app/src            # <--- Esto sincroniza el backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:

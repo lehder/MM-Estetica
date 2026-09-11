@@ -1,0 +1,220 @@
+/* ======================================================
+   NAVBAR (DESKTOP & GENERAL)
+   ====================================================== */
+.navbar {
+  position: sticky;
+  top: 0;
+  background-color: rgba(233, 223, 200, 0.70);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-line);
+  z-index: 1000;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 150px;
+}
+
+/* Brand & Logo */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.nav-logo-img {
+  height: 150px;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: var(--font-title);
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.brand-tagline {
+  font-size: 0.58rem;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  font-weight: 500;
+}
+
+/* Menu Links */
+.nav-menu {
+  display: flex;
+  gap: 2.2rem;
+  align-items: center;
+  list-style: none;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--gold-primary);
+}
+
+.btn-nav {
+  padding: 0.5rem 1.4rem;
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  border-radius: 2px;
+}
+
+.btn-nav:hover {
+  background-color: var(--gold-primary);
+  color: #FFF !important;
+}
+
+/* ======================================================
+   MENÚ HAMBURGUESA & RESPONSIVE DESIGN
+   ====================================================== */
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-primary);
+  margin: 5px 0;
+  transition: var(--transition);
+}
+
+@media (max-width: 850px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-logo-img {
+    height: 40px;
+  }
+
+  .brand-name {
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+  }
+
+  .brand-tagline {
+    font-size: 0.5rem;
+    letter-spacing: 2px;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-primary);
+    flex-direction: column;
+    padding: 2.5rem 0;
+    gap: 1.8rem;
+    border-bottom: 1px solid var(--border-line);
+    transform: translateY(-150%);
+    transition: transform 0.35s ease-in-out;
+  }
+
+  .nav-menu.open {
+    transform: translateY(0);
+  }
+}
+
+/* ======================================================
+   FOOTER
+   ====================================================== */
+.site-footer {
+  background-color: #1A1918;
+  color: #D9D4CC;
+  padding: 4.5rem 0 2rem;
+  margin-top: 5rem;
+  border-top: 1px solid #2B2825;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+.footer-col h4 {
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  color: #FFF;
+  margin-bottom: 1.2rem;
+}
+
+.footer-col p,
+.footer-col a {
+  font-size: 0.85rem;
+  color: #A6A097;
+  text-decoration: none;
+  line-height: 1.8;
+  display: block;
+}
+
+.footer-col a:hover {
+  color: var(--gold-light);
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.8rem;
+}
+
+.social-btn {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #3A3632;
+  color: var(--gold-light);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+
+.social-btn:hover {
+  border-color: var(--gold-primary);
+  color: #FFF;
+  background-color: rgba(163, 128, 91, 0.15);
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #282522;
+  padding-top: 2rem;
+  font-size: 0.75rem;
+  color: #6C665F;
+}

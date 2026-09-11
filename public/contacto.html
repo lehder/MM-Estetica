@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citas & Contacto | Melanie Marin</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/forms.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="/assets/logo.jpg" alt="Logo Melanie Marin" class="nav-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">Melanie Marin</span>
+          <span class="brand-tagline">Estética Avanzada</span>
+        </div>
+      </a>
+      
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir Menú">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="nav-link">Inicio</a></li>
+        <li><a href="servicios.html" class="nav-link">Tratamientos</a></li>
+        <li><a href="contacto.html" class="nav-link">Citas</a></li>
+        <li><a href="login.html" class="nav-link btn-nav">Acceso Clientes</a></li>
+      </ul>
+    </div>
+  </header>  
+
+  <main class="container form-wrapper">
+    <div class="form-box" style="max-width: 550px;">
+      <h1 class="section-title" style="font-size: 2rem;">Reserva de Cita</h1>
+      <p class="section-subtitle">Déjanos tus datos y te confirmaremos el horario</p>
+      
+      <form id="contactForm">
+        <div class="input-group">
+          <label for="name">Nombre y Apellidos</label>
+          <input type="text" id="name" required placeholder="Tu nombre completo">
+        </div>
+        <div class="input-group">
+          <label for="phone">Teléfono / WhatsApp</label>
+          <input type="tel" id="phone" required placeholder="600 000 000">
+        </div>
+        <div class="input-group">
+          <label for="serviceSelect">Tratamiento deseado</label>
+          <input type="text" id="serviceSelect" placeholder="Ej: Hidrafacial o Maderoterapia">
+        </div>
+        <div class="input-group">
+          <label for="notes">Notas o preferencias horarias</label>
+          <input type="text" id="notes" placeholder="Ej: Horario de tardes preferible">
+        </div>
+        <button type="submit" class="btn-submit">Enviar Solicitud</button>
+        <p id="contactFeedback" class="auth-feedback"></p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4>Melanie Marin</h4>
+        <p>Tu belleza en las mejores manos. Diagnósticos honestos y aparatología avanzada.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Horario</h4>
+        <p>Lunes a Viernes: 10:00 - 20:00</p>
+      </div>
+      <div class="footer-col">
+        <h4>Redes Sociales</h4>
+        <div class="social-links">
+          <a href="https://gmail.com" target="_blank" class="social-btn">Gmail</a>
+          <a href="https://instagram.com" target="_blank" class="social-btn">Instagram</a>
+          <a href="https://tiktok.com" target="_blank" class="social-btn">TikTok</a>
+          <a href="https://facebook.com" target="_blank" class="social-btn">Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Melanie Marin Estética Avanzada. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="/js/navbar.js"></script>
+  <script src="/js/contacto.js"></script>
+</body>
+</html>

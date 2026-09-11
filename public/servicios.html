@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tratamientos & Servicios | Melanie Marin</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/servicios.css">
+</head>
+<body>
+
+  <!-- Navegación con Menú para Ordenador y Hamburguesa para Móvil -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="/assets/logo.jpg" alt="Logo Melanie Marin" class="nav-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">Melanie Marin</span>
+          <span class="brand-tagline">Estética Avanzada</span>
+        </div>
+      </a>
+      
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir Menú">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="nav-link">Inicio</a></li>
+        <li><a href="servicios.html" class="nav-link">Tratamientos</a></li>
+        <li><a href="contacto.html" class="nav-link">Citas</a></li>
+        <li><a href="login.html" class="nav-link btn-nav">Acceso Clientes</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="container" style="padding: 4rem 0;">
+    <h1 class="section-title">Nuestros Protocolos</h1>
+    <p class="section-subtitle">Ciencia, Belleza y Bienestar integral</p>
+
+    <!-- Filtro por categoría -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-category="">Todos</button>
+      <button class="filter-btn" data-category="FACIAL">Faciales</button>
+      <button class="filter-btn" data-category="CORPORAL">Corporales</button>
+    </div>
+
+    <!-- Contenedor dinámico de servicios -->
+    <section class="services-grid" id="servicesContainer"></section>
+
+    <!-- Paginador -->
+    <nav class="pagination-container" id="paginationWrapper" aria-label="Navegación de tratamientos"></nav>
+  </main>
+
+  <!-- Footer Completo -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4>Melanie Marin</h4>
+        <p>Centro de estética avanzada especializado en tratamientos faciales y corporales no invasivos de alto impacto.</p>
+        <p style="margin-top: 1rem; color: var(--gold-light);">Tu piel, tu cuerpo, tu mejor versión.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Atención al Cliente</h4>
+        <p>Dirección: Calle Principal 15</p>
+        <p>Lunes a Viernes: 10:00 - 20:00</p>
+        <p>Sábados: Con cita previa</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto & Redes</h4>
+        <a href="mailto:melaniemarin.estetica@gmail.com">melaniemarin.estetica@gmail.com</a>
+        <div class="social-links">
+          <a href="https://gmail.com" target="_blank" class="social-btn">Gmail</a>
+          <a href="https://instagram.com" target="_blank" class="social-btn">Instagram</a>
+          <a href="https://tiktok.com" target="_blank" class="social-btn">TikTok</a>
+          <a href="https://facebook.com" target="_blank" class="social-btn">Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Melanie Marin Estética Avanzada. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts JS externos desacoplados -->
+  <script src="/js/navbar.js"></script>
+  <script src="/js/servicios.js"></script>
+</body>
+</html>

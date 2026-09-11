@@ -1,0 +1,151 @@
+/* ======================================================
+   HERO CON IMAGEN DIFUMINADA
+   ====================================================== */
+.hero-section {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-line);
+}
+
+/* Fondo con imagen de estética y desenfoque */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1800&q=80');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(8px);
+  transform: scale(1.05); /* Evita bordes blancos por el desenfoque */
+  z-index: 1;
+}
+
+/* Capa de color beige institucional para fusionar el logo y dar contraste */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* background: linear-gradient(
+    180deg,
+    rgba(233, 223, 200, 0.88) 0%,
+    rgba(233, 223, 200, 0.82) 50%,
+    rgba(233, 223, 200, 0.95) 100%
+  ); */
+  z-index: 2;
+}
+
+/* Contenido por encima de las capas */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  padding: 4rem 1rem;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+.hero-title {
+  font-family: var(--font-title);
+  font-size: 3.6rem;
+  font-weight: 600;
+  max-width: 850px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.18;
+  color: var(--text-primary);
+}
+
+.hero-desc {
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.btn-primary {
+  display: inline-block;
+  background-color: var(--gold-primary);
+  color: #FFF;
+  padding: 0.9rem 2.2rem;
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 2px;
+  border: 1px solid var(--gold-primary);
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  background-color: var(--gold-hover);
+  border-color: var(--gold-hover);
+}
+
+.btn-secondary {
+  display: inline-block;
+  background-color: rgba(250, 247, 242, 0.6);
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
+  padding: 0.9rem 2.2rem;
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-radius: 2px;
+  backdrop-filter: blur(4px);
+  transition: var(--transition);
+}
+
+.btn-secondary:hover {
+  background-color: var(--text-primary);
+  color: #FFF;
+}
+
+.pillars-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  padding: 5rem 0;
+}
+
+.pillar-card {
+  background: var(--bg-card);
+  padding: 2.5rem 2rem;
+  border: 1px solid var(--border-line);
+  text-align: center;
+}
+
+.pillar-card h3 {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.pillar-card p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
